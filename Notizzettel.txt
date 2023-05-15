@@ -1,0 +1,17 @@
+// =====================================================================
+
+Modern C++ / Firmenseminar Sagemcom Dr. Neuhaus GmbH
+
+Rostock
+
+peter.loos@gmx.de
+
+Peter Loos
+
+https://peterloos.de/
+
+https://github.com/pelocpp
+
+// =====================================================================
+
+Guten Morgen :)
