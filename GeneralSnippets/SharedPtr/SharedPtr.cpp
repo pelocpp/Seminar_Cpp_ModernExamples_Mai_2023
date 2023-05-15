@@ -27,7 +27,7 @@ namespace SharedPointer {
     }
 
     // note: play with 'call-by-value' or 'call-by-reference'
-    void storeSharedPointer(std::shared_ptr<int> ptr) 
+    void storeSharedPointer(std::shared_ptr<int>& ptr) 
     {
         std::cout << "inner scope: " << ptr.use_count() <<  std::endl;
     }

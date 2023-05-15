@@ -7,8 +7,11 @@ module modern_cpp:lambda;
 namespace Lambdas {
 
     bool compare (int n1, int n2) {
-        return n1 < n2;
+        std::cout << "bin in compare" << std::endl;
+        return n1 > n2;
     }
+
+
 
     class Comparer
     {
@@ -19,7 +22,8 @@ namespace Lambdas {
         Comparer() : m_flag{ true } {}
         Comparer(bool flag) : m_flag{ flag } {}
 
-        bool operator() (int n1, int n2) const {
+        bool operator() (int n1, int n2) const 
+        {
             return (m_flag) ? n1 < n2 : n1 > n2;
         }
     };
@@ -55,13 +59,61 @@ namespace Lambdas {
         }
         std::cout << std::endl;
 
-        std::sort(std::begin(vec), std::end(vec), compare);
+        std::sort(
+            std::begin(vec), 
+            std::end(vec), 
+            compare
+        );
+        
+        
         // or
-        std::sort(std::begin(vec), std::end(vec), Comparer{});
+        std::sort(
+            std::begin(vec),
+            std::end(vec), 
+            Comparer{false}
+        );
+
         // or
-        std::sort(std::begin(vec), std::end(vec), Comparer{false});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            Comparer{false}
+        );
+
+
         // or
-        std::sort(std::begin(vec), std::end(vec), LocalComparer{});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            LocalComparer{}
+        );
+
+        auto myComparer = [](int n, int m) {
+            std::cout << "Lambda: bin in compare" << std::endl;
+            return n < m;
+        };
+
+        //std::function < bool (int, int) >  myComparer2 = [](int n, int m) -> bool {
+        //    std::cout << "Lambda: bin in compare" << std::endl;
+        //    return n < m;
+        //};
+
+        bool flag = false;
+
+        // Lambda - Funktionen
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            //myComparer
+            [=](int n, int m) {
+                std::cout << "Lambda: bin in compare" << std::endl;
+                if (flag)
+                    return n < m;
+                else
+                    return n > m;
+            }
+        );
+
 
         for (int n : vec) {
             std::cout << n << ' ';
@@ -118,14 +170,42 @@ namespace Lambdas {
 
     void test_05() {
 
-        // defining new variables in the lambda capture:
-        // we can declare a new variable that is only visible
-        // in the scope of the lambda: We do so by defining a variable
-        // in the lambda-capture without specifying its type:
 
         // lambda with variable definition
-        auto lambda = [variable = 10] () { return variable; };
-        std::cout << lambda() << std::endl;
+        auto lambda = [variable = 10] (int wert) mutable {
+
+            std::cout << wert << "  ";
+
+            variable++;
+            return variable; 
+        };
+
+      //  ++variable;
+
+        //// Closure
+        //auto variable = 10;
+
+        //// JavaScript
+        //auto lambda = [=] (int wert) mutable {
+
+        //    std::cout << wert << "  ";
+
+        //    variable++;
+        //    return variable; 
+        //};
+
+        //variable++;
+
+        std::cout << lambda(42) << std::endl;
+        std::cout << lambda(42) << std::endl;
+        std::cout << lambda(42) << std::endl;
+
+        return;
+
+
+
+
+
 
         // Captures default to 'const value':
         // The mutable keyword removes the 'const' qualification from all captured variables
@@ -191,13 +271,14 @@ namespace Lambdas {
             std::cout << "Reference: " << n << " " << m << std::endl;
         };
 
-        return lambda;  // I would't do this never ever :-)
+        return lambda;       // I would't do this never ever :-)
     }
 
     void test_07() {
 
         auto outerLambda1 = test_07_helper_a();
         auto outerLambda2 = test_07_helper_b();
+
         outerLambda1();
         outerLambda2();
     }
@@ -232,16 +313,16 @@ namespace Lambdas {
 void main_lambdas()
 {
     using namespace Lambdas;
-    test_00();
-    test_01();
-    test_02();
-    test_03();
-    test_04();
-    test_05();
-    test_06();
+    //test_00();
+    //test_01();
+    //test_02();
+    //test_03();
+    //test_04();
+    //test_05();
+    //test_06();
     test_07();
-    test_08();
-    test_09();
+    //test_08();
+    //test_09();
 }
 
 // =====================================================================================

@@ -15,3 +15,254 @@ https://github.com/pelocpp
 // =====================================================================
 
 Guten Morgen :)
+
+// =====================================================================
+
+:=  ... EA0   // temp. Objekt // wird jetzt freigegeben
+:=  ... 220
+
+:=  ... A70
+
+// =====================================================================
+
+C++:
+
+Referenz-basierte Sprache:
+
+== Via Referenz auf ein anderes Objekt zugreifen
+   (Referenz == Alias)
+
+
+Value-basierte Sprache:
+
+== Wert // Kopie // Stack
+
+== Dynamisch allokierte Objekte
+
+   == Ablage: Heap  ( new )
+
+
+
+
+C#  // Java: 
+
+== REIN Referenz-basiert (C#: Ausnahme: struct)
+
+
+=====================================================
+
+C++:
+
+Paradigma:  
+
+  == objekt-orientierte   // OO
+  == Generic Programming  // GP
+
+  == funktional
+
+=====================================================
+
+Funktor
+
+Aufrufbares Objekt
+
+Callable
+
+Ist ein Objekt, das den operator() zur Verfügung stellt.
+
+Why:  Qualitativ eine Methode, aber ich muss mir 
+      über den Namen keine Gedanken / Festlegung treffen.
+
+=====================================================
+
+C++:  Stilistik // "Good of Bad"
+
+=====================================================
+
+Cpp Insights:
+
+https://cppinsights.io/
+
+=====================================================
+
+Smart Pointer
+
+new, delete
+
+Nachteil:    Ich vergesse das delete ==> Leak
+
+Idee  / Konzept:     "We can do better"
+
+Objekt-Orientierung: 
+
+    = Konstruktor
+    = Destruktor
+
+Werden - im Regelfall - DETERMINISTISCH aufgerufen.
+
+Lokales Objekt:
+
+===> Konstruktor: Beim Anlegen des Objekts
+===> Destruktor:  Am Ende der Funktion / Methode
+
+Idee:  Pointer:  Hüllen-Klasse / Hüllen-Objekt.
+
+===> Konstruktor: Wird new aufgerufen 
+===> Destruktor:  Wird delete aufgerufen 
+
+Hmmm: Will das Objekt länger behalten :)
+
+Weitere Ideen
+
+A) auto_ptr  
+
+B) std::unique_ptr
+   std::shared_ptr  // std::weak_ptr
+
+
+ Strategie:   std::unique_ptr
+
+
+ Ist im Besitz EINES Client.   Ahaaa ... wie geht das ???
+
+ Strategie:   std::shared_ptr
+
+ Kann mehrere Besitzer haben.
+
+       ==> Wieviele Besitzer?   "Referenz Zählers"
+       ==> Geht in die Richtung GC !!!
+
+
+=====================================================
+
+Copy-able
+
+Move-able
+
+Unique_ptr: NOT Copy-able, but Move-able !!!
+
+
+   =====================================================
+
+RAII:    Resource Acquisition is Initialization
+
+https://github.com/pelocpp/cpp_design_patterns/blob/master/Patterns/RAII_Idiom/Resources/Readme.md
+
+zb  std::mutex:   Die bringen das mit.
+
+std::scoped_lock
+
+   =====================================================
+
+    static std::mutex io_mutex;
+    {
+        std::lock_guard<std::mutex> lk(io_mutex);
+        std::cout << e1.id << " and " << e2.id << " are waiting for locks" << std::endl;
+    }
+
+
+    IST IDENTISCH MIT
+
+    static std::mutex io_mutex;
+    io_mutex.lock();
+    std::cout << e1.id << " and " << e2.id << " are waiting for locks" << std::endl;
+    io_mutex.unlock();
+
+=============================================
+
+KISS  Keep it simple and stupid
+
+DRY  Don't repeat yourself  
+
+std::fill
+
+int array[100];
+
+// mit Wert 1 füllen
+
+A)
+
+ for (int i =0; i < 100; ++i )
+     array[i] = 1;
+
+B)
+
+   array ===> int array[100];
+
+   array ===> std::list  // std::denque // any Container  
+
+   std::fill (
+       array.begin(),
+       array.end(),
+       1
+   );
+
+
+C)  std::fill ==> LINEAREN DATENSTRUKTUR
+              ==> Speicher: Konsekutiv
+
+
+    std::fill  ==> std::memset
+
+=============================================
+
+1 Bad News:   std::shared Pointer: Funktioniert nicht immer :)
+
+=============================================
+
+C#:   Event Handler 
+
+MouseMoveHandler myHandler = new MouseMoveHandler();
+
+win += myHandler;
+
+// win -= myHandler;    // Respekt !!!!!!!!!!!!!!!!!!!!!!!!
+
+=============================================
+
+Zyklen von Objekten.
+
+=============================================
+
+Lösung der Bad News:   std::weak Pointer.
+
+=============================================
+
+Memory Leaks:
+
+https://github.com/pelocpp/cpp_modern_examples/blob/master/GeneralSnippets/MemoryLeaks/MemoryLeaksDetection.md
+
+Detected memory leaks!
+Dumping objects ->
+C:\Development\Modern_Cpp_SagemCom\GeneralSnippets\UniquePtr\UniquePtr.cpp(179) : {159} normal block at 0x000002058DAB94A0, 40 bytes long.
+ Data: <                > CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD 
+Object dump complete.
+
+=============================================
+
+Observer Pattern
+
+Event Quelle // Source
+
+    == std::shared_ptr: Für die Source selbst.
+
+    == Kennt die Beobachter:  Da tut es ein weak_ptr
+
+    == Eine Quelle übernimmt KEINE Verantwortung 
+       für die Lebensdauer eines Beobachters.
+
+    == Es tritt ein Ereignis ein:  
+
+        Gibt es die Beobachter noch?  weak_ptr.lock
+
+
+Event Client // Senke // Sink:
+
+    == Können als std::shared_ptr angelegt werden.
+
+===> Dynamisch.
+
+Ein ausführliches Beispiel:
+
+https://github.com/pelocpp/cpp_modern_examples/blob/master/GeneralSnippets/WeakPtr/WeakPtr.md
+

@@ -30,9 +30,11 @@ namespace LValueRValue {
 
     void helper(std::string&& message) {
 
-        sayHello(message);
-        // sayHello(std::move(message));    // casting an lvalue to an rvalue
+        sayHello( std::move(message) ); // A) Typ == && => sayHello(&&)
+                           // B) Hmm: message ist ein Name
+                           //       => sayHello(&)
     }
+
 
     void test02() {
 

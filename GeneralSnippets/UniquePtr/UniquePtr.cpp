@@ -2,7 +2,23 @@
 // UniquePtr.cpp // std::unique_ptr
 // ===============================================================================
 
+module;
+
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#ifndef DBG_NEW
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+#define new DBG_NEW
+#endif
+#endif  // _DEBUG
+
 module modern_cpp:unique_ptr;
+
+import :dummy;
+
 
 namespace UniquePointerGeneral {
 
@@ -18,18 +34,27 @@ namespace UniquePointerGeneral {
         (*ptr)++;
         std::cout << "*ptr:    " << *ptr << std::endl;
 
+        ptr = nullptr;
+
         // take ownership right now:
         // std::unique_ptr<int> ptr2{ std::move(ptr) };
     }
+
+    //void storeUniquePointerSafe(const std::unique_ptr<int>& ptr)
+    //{
+    //    std::cout << "*ptr:    " << *ptr << std::endl;
+    //    (*ptr)++;
+    //    std::cout << "*ptr:    " << *ptr << std::endl;
+
+    //    // take ownership right now:
+    //    // std::unique_ptr<int> ptr2{ std::move(ptr) };
+    //}
 
     void storeUniquePointerSafe(const std::unique_ptr<int>& ptr)
     {
         std::cout << "*ptr:    " << *ptr << std::endl;
         (*ptr)++;
         std::cout << "*ptr:    " << *ptr << std::endl;
-
-        // ownership CANNOT be taken right now - ptr is const:
-        // std::unique_ptr<int> ptr2{ std::move(ptr) };
     }
 
     void storeUniquePointerAlternate(int* ptr)
@@ -45,6 +70,18 @@ namespace UniquePointerGeneral {
 
     void test_01() 
     {
+        //int* ip1;
+        //int* ip2;
+
+        //ip1 = ip2;
+
+        //std::unique_ptr<int> x;
+        //std::unique_ptr<int> y;
+
+        //x = y;
+
+
+
         // create a unique_ptr to an int with value 123
         std::unique_ptr<int> ptr1{ new int{ 123 } };
         // or
@@ -66,7 +103,7 @@ namespace UniquePointerGeneral {
         // second std::unique_ptr by moving 'ptr1' to 'ptr2',
         // 'ptr1' doesn't own the object anymore
         std::unique_ptr<int> ptr2{ std::move(ptr1) };
-        // std::cout << "*ptr1: " << *ptr1 << std::endl;  // crashes 
+       // std::cout << "*ptr1: " << *ptr1 << std::endl;  // crashes 
         std::cout << "*ptr2:   " << *ptr2 << std::endl;
 
         std::unique_ptr<int> ptr3;
@@ -75,6 +112,10 @@ namespace UniquePointerGeneral {
         int* ip3{ ptr3.get() };
         (*ip3)++;
         std::cout << "*ptr3:   " << *ptr3 << std::endl;
+
+      //  Dummy d;
+
+        std::unique_ptr<Dummy> myDummy { new Dummy{ 123 } };
     }
 
     void test_02()
@@ -85,6 +126,10 @@ namespace UniquePointerGeneral {
 
         // provide a function with a unique pointer: who owns the pointer now?
         storeUniquePointer(ptr);
+
+        const std::unique_ptr<const int> ptr2 = std::move(ptr);
+        // ++ptr2;  // Error
+        int tmp = *ptr2;
 
         // C++ Core Guidelines
         storeUniquePointerAlternate(ptr.get());
@@ -129,13 +174,21 @@ namespace UniquePointer_SourceSinkPattern
 
 void main_unique_ptr()
 {
-    using namespace UniquePointerGeneral;
-    test_01();
-    test_02();
-    test_03();
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    using namespace UniquePointer_SourceSinkPattern;
-    test_04();
+    int* ip = new int[10];
+    delete[] ip;
+
+    // Dummy* d1 = new Dummy(123);
+    std::unique_ptr<Dummy> d2{ new Dummy(123) };
+
+    using namespace UniquePointerGeneral;
+  //  test_01();
+   // test_02();
+    //test_03();
+
+    //using namespace UniquePointer_SourceSinkPattern;
+    //test_04();
 }
 
 // =================================================================================

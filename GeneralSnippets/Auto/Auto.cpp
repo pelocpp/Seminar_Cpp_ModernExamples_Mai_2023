@@ -6,14 +6,22 @@ module modern_cpp:auto_keyword;
 
 namespace Auto_Examples {
 
-    std::map<int, std::string> getFunction() { return {}; };
+    std::map<int, std::string> getFunction() 
+    { return {}; };
 
     void test_01_a() {
+
+        // JavaScript
+        //var o;
+        //let g;
+        auto x = 123;
 
         auto n = 123;    // n is type of int
 
         auto result = getFunction();
-        std::map<int, std::string> result2 = getFunction();
+
+        std::map<int, std::string> result2 = 
+            getFunction();
     }
 
     // ---------------------------------------------------------------------
@@ -27,7 +35,7 @@ namespace Auto_Examples {
         auto x = 2.0;           // double
         auto y = 2.0f;          // float
         auto c = 'A';           // char
-        auto s = "hi";          // char const*
+        auto s = "hi";          // const char*
         auto b = true;          // bool
 
         // C++ 14 and above we have std::string literals
@@ -42,11 +50,82 @@ namespace Auto_Examples {
 
     // ---------------------------------------------------------------------
 
-
+    // float
     auto sum(float f1, float f2)
     {
         return f1 + f2;
     }
+
+
+
+    auto andereSumme(bool flag, float f1, float f2)
+    {
+        if (flag) {
+            return f1 + f2;
+        }
+        else {
+            return 123.0F;
+        }
+    }
+
+    //auto nochEineAndereSumme(
+    //    bool flag, float f1, float f2) -> float
+    //{
+    //    if (flag) {
+    //        return f1 + f2;
+    //    }
+    //    else {
+    //        return 123;
+    //    }
+    //}
+
+    template <typename T1, typename T2>
+
+    //decltype (  std::declval<T1>() + std::declval<T2>() )
+      
+    auto
+    nochEineAndereSumme(
+        bool flag, T1 f1, T2 f2)
+    {
+        using RetType = 
+            decltype (std::declval<T1>() + std::declval<T2>());
+
+        if (flag) {
+            return f1 + f2;
+        }
+        else {
+            return (RetType) 123;
+        }
+    }
+
+    template <typename T1, typename T2>
+    auto nochEineAndereSumme2(
+            bool flag, T1 f1, T2 f2) -> decltype( f1 + f2 ) 
+    {
+        if (flag) {
+            return f1 + f2;
+        }
+        else {
+            return 123;
+        }
+    }
+
+    void test_xxx() {
+
+        auto result = nochEineAndereSumme2<double, float>(true, 123.56, 234.33F);
+    
+        auto result2 = nochEineAndereSumme2(true, 123, 456l);
+
+        auto result3 = nochEineAndereSumme2(true, (short) 123, (short) 456l);
+
+        // auto result3 = nochEineAndereSumme(true, "1", "4");
+    }
+
+
+
+
+
+
 
     auto foo(bool flag, char ch, double d) -> double
     {
@@ -109,18 +188,22 @@ namespace Auto_Examples {
 
     const std::string message{ "This is an important message :)" };
 
+
     const std::string& getMessage()
     {
         return message;
     }
 
+
     void test_01_e() {
 
-        auto msg = getMessage();
+        decltype (auto) msg = getMessage();
+
         std::cout << "Message: " << msg << std::endl;
 
         // but:
-        const auto& msg2 = getMessage();
+        const auto & msg2 = getMessage();
+
         std::cout << "Message: " << msg2 << std::endl;
 
         // or:

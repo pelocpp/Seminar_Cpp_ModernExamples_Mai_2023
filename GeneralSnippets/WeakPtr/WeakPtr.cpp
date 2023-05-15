@@ -20,7 +20,8 @@ module modern_cpp:weak_ptr;
 
 namespace WeakPointer {
 
-    void test_01() {
+    void test_01()
+    {
         std::cout << std::boolalpha;
 
         std::cout << "Begin-of-program" << std::endl;
@@ -80,8 +81,8 @@ namespace WeakPointer {
 
     class ParentNode {
     private:
-        std::shared_ptr<RightNode> m_rightNode;   // <== shared or weak ?
-        std::shared_ptr<LeftNode> m_leftNode;     // <== shared or weak ?
+        std::weak_ptr<RightNode> m_rightNode;   // <== shared or weak ?
+        std::weak_ptr<LeftNode> m_leftNode;     // <== shared or weak ?
 
     public:
         ParentNode() {
@@ -130,9 +131,16 @@ namespace WeakPointer {
 
     void test_02()
     {
-        std::shared_ptr<ParentNode> parent{ new ParentNode {} };
-        std::shared_ptr<RightNode> rightNode{ new RightNode { parent } };
-        std::shared_ptr<LeftNode> leftNode{ new LeftNode { parent } };
+        std::shared_ptr<ParentNode> parent{
+            new ParentNode {}
+        };
+
+        std::shared_ptr<RightNode> rightNode{
+            new RightNode { parent }
+        };
+        std::shared_ptr<LeftNode> leftNode{ 
+            new LeftNode { parent } 
+        };
 
         parent->setRightNode(rightNode);
         parent->setLeftNode(leftNode);
@@ -157,9 +165,9 @@ void main_weak_pointer()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     using namespace WeakPointer;
-    test_01();
+   // test_01();
     test_02();
-    test_03();
+   // test_03();
 }
 
 // =====================================================================================
