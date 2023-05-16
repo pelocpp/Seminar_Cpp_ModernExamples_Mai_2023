@@ -508,4 +508,32 @@ Klasse Color
 
 
 
+==================================================
+
+Wo geht die Reise hin ...............
+
+Concepts ==========> FEHLERMELDUNGEN
+
+--------------------------------------------------
+
+= Funktionen - klassisch
+
+= Funktionstemplates 
+
+= Lambda Funktionen
+
+= Generische Funktionen
+
+=====> Ab C++ 20 kann man hier - vergleichsweise -
+       nahtlos wechseln ...
+
+--------------------------------------------------
+
+Komma  Operator:
+
+Abschluss:
+
+https://peterloos.de/post/2023-05-08-variadic-generic-and-more/index.php
+
+==============================================
 
