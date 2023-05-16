@@ -10,11 +10,11 @@ namespace StdArray {
     void test_01() {
 
         // initialization variants
-        [[maybe_unused]] std::array<int, 5> myArray1{};
+        std::array<int, 5> myArray1{};
 
-        [[maybe_unused]] std::array<int, 5> myArray2 = { 1, 2, 3, 4, 5 }; //  initializer list
+        std::array<int, 5> myArray2 = { 1, 2, 3, 4, 5 }; //  initializer list
 
-        [[maybe_unused]] std::array<int, 5> myArray3{ 1, 2, 3, 4, 5 }; // uniform initialization
+        std::array<int, 5> myArray3{ 1, 2, 3, 4, 5 }; // uniform initialization
 
         // doesn't compile
         // std::array myArray;
@@ -132,7 +132,9 @@ namespace StdArray {
         // multidimensional std::array
         std::array<std::array<int, 3>, 3> myArray{
             {
-                {1, 2, 3}, {4, 5, 6}, {7, 8, 9}
+                {1, 2, 3}, 
+                {4, 5, 6}, 
+                {7, 8, 9}
             }
         };
 

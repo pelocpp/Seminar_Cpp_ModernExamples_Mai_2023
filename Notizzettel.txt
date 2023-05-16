@@ -22,7 +22,7 @@ constexpr
 
 for // for_each // ..........
 
-emplace ...
+emplace ...  : check
 
 // =====================================================================
 
@@ -390,3 +390,122 @@ addierer (TArgs ... args) {
 Perfect Forwarding
 
 ===============================================
+
+
+Hilfklassen:
+
+A) std::array   
+
+Was ist der Unterschied zwischen
+
+einem C-Array:   
+
+int numbers[10];
+
+und einem std::array-Objekt:
+
+std::array<int, 10> numbers;      ?
+
+KEINER.   ==> Fixed-Size Array.
+
+
+===> Go for std::array  
+
+Why:
+
+C-Array:  Index - Verletzung.
+
+std::array:  Index:
+
+2 Optionen:
+
+a) []                         ==> Keine Überprüfung des Index
+b) at-Methode  (Referenz)     ==> MIT Überprüfung des Index
+                                  std::exception
+
+===============================================
+
+std::optional
+
+int value;    
+
+Kein Wert verfügbar:  -1  - MaxInt
+
+We can do better:
+
+int  value;    
+bool isValid; 
+
+
+std::string phone;   ""
+
+=================================================
+
+std::pair    // std::map
+
+std::tuple
+
+std::tuple <char, int, double> values;
+
+struct für Schreibfaule
+
+DTO   // Data Transfer Objects 
+
+=================================================
+
+Structured Binding
+
+=================================================
+
+std::variant ist ÄHNLICH mit union
+
+Ist ein Objekt, dass mehrere Daten unterschiedlichen
+Typs abspeichern kann --- ABER zu einem Zeitpunkt
+immer nur EINE Variable.
+
+==========================================
+
+Type Traits  sind der ARME Ersatz für C# Reflection
+
+==========================================
+
+Std::variant   ==> Besucher
+
+==========================================
+
+Übung zu variant:  Buchhandlung
+
+Aufgabe 2 bei Utility Klassen:
+
+https://github.com/pelocpp/cpp_modern_examples/blob/master/GeneralSnippets/Exercises/Exercises_04_UtilityClasses.md#aufgabe-2-visitor-entwurfsmuster-mit-stdvariant-und-stdvisit
+
+https://github.com/pelocpp/cpp_modern_examples/blob/master/GeneralSnippets/Exercises/Exercises_04_UtilityClasses.cpp
+
+
+
+Statische Methodenaufruf:    DIREKTER Aufruf
+
+Virtuellen Methodenaufruf:   INDIREKTER Aufruf
+
+=========================================================
+
+Konstanten
+
+Technologische Konstanten: 
+
+3_km
+5_kg
+
+0xFF0000_farbe
+
+0xFF0000 _rgb
+
+========>   1 speziellen Operator    ""
+
+             Literal Operator
+
+Klasse Color
+
+
+
+

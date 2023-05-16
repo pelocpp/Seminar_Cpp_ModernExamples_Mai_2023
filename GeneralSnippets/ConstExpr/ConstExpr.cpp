@@ -15,7 +15,8 @@ namespace ConstExprComplex {
     public:
         // c'tors
         constexpr Complex() : m_real{ }, m_imag{ } {}
-        constexpr Complex(float real, float imag) : m_real{ real }, m_imag{ imag } {}
+        constexpr Complex(float real, float imag) 
+            : m_real{ real }, m_imag{ imag } {}
 
         // getter
         constexpr float real() const { return m_real; }
@@ -39,13 +40,13 @@ namespace ConstExprComplex {
         [[maybe_unused]] constexpr float r1 = c1.real();
         constexpr Complex c3 = c1 + c2;
         [[maybe_unused]] constexpr float r2 = c3.real();
-
+    
         // verify 'constness' with the help of disassembly and
         // https://www.h-schmidt.net/FloatConverter/IEEE754de.html
         
         std::cout << "Real: " << c3.real() << std::endl;
         std::cout << "Imag: " << c3.imag() << std::endl;
-
+    
         // verify compile time computing
         static_assert (c1.real() == 1.0, "real part shoud be 1.0");
         static_assert (c3.real() == 4.0, "real part shoud be 4.0");

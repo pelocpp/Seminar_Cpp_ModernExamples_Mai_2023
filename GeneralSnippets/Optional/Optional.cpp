@@ -12,7 +12,7 @@ namespace OptionalExamples {
 
     void test_01_optional() {
 
-        std::optional<int> someValue;
+        std::optional<int> someValue{};
 
         if (someValue.has_value()) {
             

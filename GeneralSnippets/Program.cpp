@@ -57,7 +57,7 @@ int main()
         //main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
-        //main_literals();
+        main_literals();
         //main_memory_leaks_detection();
         //main_metaprogramming_01();
         //main_metaprogramming_02();
@@ -98,7 +98,7 @@ int main()
         //main_type_traits();
         //main_uniform_initialization();
         //main_unique_ptr();
-        main_variadic_templates_introduction();
+        //main_variadic_templates_introduction();
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();
         //main_variadic_templates_mixins();

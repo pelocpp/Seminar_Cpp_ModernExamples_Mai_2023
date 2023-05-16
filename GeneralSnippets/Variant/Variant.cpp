@@ -104,8 +104,26 @@ namespace VariantDemo {
         std::variant<int, float, std::string> var{ 3.5f };
 
         // using a generic visitor (matching all types in the variant)
-        auto visitor = [](auto const& elem) {
-            std::cout << elem << std::endl;
+        auto visitor = [](const auto& elem) 
+        {
+            using CurrentType = decltype (elem);
+
+            using CurrentTypeWithoutReference =
+                std::remove_reference <CurrentType>::type;
+
+            using CurrentTypeWithoutReferenceAndConst =
+                std::remove_const<CurrentTypeWithoutReference>::type;
+
+            if constexpr (std::is_same<float, CurrentTypeWithoutReferenceAndConst >::value) {
+                std::cout << "Hier bei float: " << elem << std::endl;
+            }
+            else if constexpr (std::is_same<int, CurrentTypeWithoutReferenceAndConst >::value) {
+                std::cout << "Hier bei int: " << elem << std::endl;
+            }
+            else if constexpr (std::is_same<std::string, CurrentTypeWithoutReferenceAndConst >::value) {
+                std::cout << "Hier bei std::string: " << elem << std::endl;
+                std::cout << "Hat die Laenge: " << elem.size() << std::endl;
+            }
         };
 
         std::visit(visitor, var);
@@ -257,17 +275,17 @@ namespace VariantDemo {
     }
 }
 
-void main_variant()
+void main_variant() 
 {
     using namespace VariantDemo;
-    test_01();
-    test_02();
+    //test_01();
+    //test_02();
     test_03();
-    test_04();
-    test_05();
-    test_06();
-    test_07();
-    test_08();
+    //test_04();
+    //test_05();
+    //test_06();
+    //test_07();
+    //test_08();
 }
 
 // =====================================================================================

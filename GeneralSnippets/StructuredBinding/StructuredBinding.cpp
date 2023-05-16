@@ -27,10 +27,22 @@ namespace StructuredBinding {
     }
 
     void test_03() {
-        int arr[] = { 10, 11, 12 };
-        auto [ a, b, c ] = arr;
+
+        int arr[3] = { 10, 11, 12 };
+
+        auto& [ a, b, c ] = arr;
+
         std::cout << a << ", " << b << ", " << c << std::endl;
+    
+        a = 999;
+
+        std::cout << arr[0] << ", " << b << ", " << c << std::endl;
     }
+
+
+
+
+
 
     void test_04() {
         int arr[] = { 10, 11, 12 };
@@ -107,13 +119,13 @@ namespace StructuredBinding {
 void main_structured_binding()
 {
     using namespace StructuredBinding;
-    test_01();
-    test_02();
+    //test_01();
+    //test_02();
     test_03();
-    test_04();
-    test_05();
-    test_06();
-    test_07();
+    //test_04();
+    //test_05();
+    //test_06();
+    //test_07();
 }
 
 // =====================================================================================

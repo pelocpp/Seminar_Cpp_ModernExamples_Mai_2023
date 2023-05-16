@@ -121,8 +121,9 @@ namespace Exercises_UtilityClasses {
         template <typename ... TMedia>
         class Bookstore
         {
-        private:
+        private:                                // Book, Movie
             using Stock = std::vector<std::variant<TMedia ...>>;
+
             using StockList = std::initializer_list<std::variant<TMedia ...>>;
 
         public:
@@ -147,6 +148,8 @@ namespace Exercises_UtilityClasses {
                         [&](const auto& element) {
                             price = element.getPrice();
                             count = element.getCount();
+                            //price = element->getPrice();
+                            //count = element->getCount();
                         },
                         media
                     );
@@ -544,10 +547,10 @@ namespace Exercises_UtilityClasses {
 
 void test_exercises_utility_classes()
 {
-    Exercises_UtilityClasses::Exercise_01::testExercise_01();
+    //Exercises_UtilityClasses::Exercise_01::testExercise_01();
     Exercises_UtilityClasses::Exercise_02::testExercise_02();
-    Exercises_UtilityClasses::Exercise_03::testExercise_03();
-    Exercises_UtilityClasses::Exercise_04::testExercise_04();
+    //Exercises_UtilityClasses::Exercise_03::testExercise_03();
+    //Exercises_UtilityClasses::Exercise_04::testExercise_04();
 }
 
 // =====================================================================================

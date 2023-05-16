@@ -20,11 +20,14 @@ namespace TupleSamples {
         // just in one statement
         std::tuple <char, int, double> moreValues{ 'Z', 987, 987.654 };
 
-        // accessing tuple values using std::get 
+        // accessing tuple values using std::get
+
+        const int n = 1;
+
         std::cout << "The values of tuple are : ";
         std::cout 
             << std::get<0>(values) << " - " 
-            << std::get<1>(values) << " - " 
+            << std::get<n>(values) << " - " 
             << std::get<2>(values)
             << std::endl;
 
@@ -45,6 +48,8 @@ namespace TupleSamples {
     // demonstrating use of std::vector with std::tuple elements
 
     using Row = std::tuple<int, char, double, std::string>;
+
+
 
     std::string rowToString(const Row& row)
     {
@@ -99,6 +104,9 @@ namespace TupleSamples {
             << "Value: " << val << std::endl
             << "Name:  " << name << std::endl;
 
+        // Range-Based for-Loop
+        // Structurde Binding
+        // vector of tuple
         for (const auto& [id, abbr, val, name] : mySheet) {
 
             std::cout 
