@@ -13,7 +13,7 @@ namespace DefaultInitializationExample {
         int m_j{ 2 };
 
     public:
-        X() = default;    // initializes m_i with 1 and m_j with 2
+        X() {};    // initializes m_i with 1 and m_j with 2
         X(int);
     };
 

@@ -4,6 +4,126 @@
 
 module modern_cpp:variadic_templates;
 
+
+namespace VariadicTemplatesIntro_Seminar {
+
+    template <typename ... TArgs>
+    auto addierer(TArgs ... args) {
+
+        // return 1 + 2 + 3 + 4;
+        // return args0 + args1 + args2+ args3;
+
+        return (args -  ...);
+    }
+
+    void test_addierer()
+    {
+        auto result = addierer(1, 2, 3);
+        std::cout << result << std::endl;
+    }
+    // =======================================
+
+    template <typename T>
+    void printer(T n) {
+
+        std::cout << n << ' ';
+    }
+
+    template <typename T, typename ... TRest>  // einpacken
+    void printer(T n, TRest ... args) {   // einpacken
+
+        std::cout << n << ' ';
+        printer<TRest ...>(args ...);   // auspacken
+    }
+
+    void test_printer()
+    {
+        printer (1, 2, 3, 4);
+    }
+
+    // ===========================================
+
+    class Unknown {
+    private:
+        int m_var1;
+        int m_var2;
+        int m_var3;
+
+    public:
+        Unknown(const Unknown& other) {
+            std::cout << "copty c'tor()" << std::endl;
+        
+            m_var1 = other.m_var1;
+            m_var2 = other.m_var2;
+            m_var3 = other.m_var3;
+        }
+
+        Unknown() : m_var1{ -1 }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor()" << std::endl;
+        }
+
+        Unknown(int n) : m_var1{ n }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor(int)" << std::endl;
+        }
+
+        Unknown(int n, int m) : m_var1{ n }, m_var2{ m }, m_var3{ -1 } {
+            std::cout << "c'tor(int, int)" << std::endl;
+        }
+
+        Unknown(int n, int m, int k) : m_var1{ n }, m_var2{ m }, m_var3{ k } {
+            std::cout << "c'tor(int, int, int)" << std::endl;
+        }
+
+        friend std::ostream& operator<< (std::ostream&, const Unknown&);
+    };
+
+    std::ostream& operator<< (std::ostream& os, const Unknown& obj) {
+        os
+            << "var1: " << obj.m_var1
+            << ", var2: " << obj.m_var2
+            << ", var3: " << obj.m_var3 << std::endl;
+
+        return os;
+    }
+
+    template <typename T, typename ... TRest>
+    std::unique_ptr<T> my_make_unique (TRest ... args)
+    {
+        std::unique_ptr<T> tmp{ new T{ args ...} };
+        return tmp;
+    }
+
+    template <typename T, typename ... TRest>
+    std::unique_ptr<T> my_make_unique_ex(TRest&& ... args)
+    {
+        // std::move ===> std::forward
+        // &&    ====> Universelle Referenz
+        // Perfektes Weiterleiten ===> std::forward
+        //    Temp. Objekte => Move
+        //    Benannte Objekte: => Kopie
+        std::unique_ptr<T> tmp{ new T{ std::forward<TRest>(args) ... } };
+        return tmp;
+    }
+
+    void test_why()
+    {
+        auto up = my_make_unique_ex<Unknown>(11, 12, 13);
+    
+    }
+
+    void test_why_02()
+    {
+        std::vector <Unknown> vec;
+
+       // vec.push_back(Unknown{1, 2});
+
+        vec.emplace_back<int , int, int>(1, 2, 3);
+    }
+
+}
+
+
+
 namespace VariadicTemplatesIntro_01 {
 
     // ====================================================================
@@ -292,24 +412,30 @@ namespace VariadicTemplatesIntro_05 {
 }
 
 void main_variadic_templates_introduction()
-{
-    using namespace VariadicTemplatesIntro_01;
-    test_printer_01();
+{ 
+    using namespace VariadicTemplatesIntro_Seminar;
+    //test_printer();
+   test_why();
+    //test_why_02();
+    //test_addierer();
+ 
+    //using namespace VariadicTemplatesIntro_01;
+    //test_printer_01();
 
-    using namespace VariadicTemplatesIntro_02;
-    test_adder_01();
-    test_adder_02();
+    //using namespace VariadicTemplatesIntro_02;
+    //test_adder_01();
+    //test_adder_02();
 
-    using namespace VariadicTemplatesIntro_03;
-    test_my_make_unique();
-    test_my_make_unique_ex();
+    //using namespace VariadicTemplatesIntro_03;
+    //test_my_make_unique();
+    //test_my_make_unique_ex();
 
-    using namespace VariadicTemplatesIntro_04;
-    test_make_an_object();
-    test_make_an_object_ex();
+    //using namespace VariadicTemplatesIntro_04;
+    //test_make_an_object();
+    //test_make_an_object_ex();
 
-    using namespace VariadicTemplatesIntro_05;
-    test_printer_02();
+    //using namespace VariadicTemplatesIntro_05;
+    //test_printer_02();
 }
 
 // =====================================================================================

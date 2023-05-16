@@ -7,15 +7,18 @@ module modern_cpp:initializer_list;
 namespace InitializerList {
 
     // function using std::initializer_list
-    int myIntAdderFunction(std::initializer_list<int> list)
+    int myIntAdderFunction(std::vector<int> list)
     {
         int result{};
+
         std::for_each(
             std::begin(list),
             std::end(list),
             [&result](int value) {
                 result += value; 
-            });
+            }
+        );
+
         return result;
     }
 
@@ -27,9 +30,14 @@ namespace InitializerList {
         std::cout << std::endl;
     }
 
-    void test_01() {
+    void test_01()
+    {
         // testing functions expecting lists in function call
-        int sum = myIntAdderFunction({ 1, 3, 5, 7, 9 });
+        int sum = 
+            
+            myIntAdderFunction ({ 1, 3, 5, 7, 9, 11, 13 });
+        
+        
         std::cout << sum << std::endl;
         std::cout << myIntAdderFunction({ 2, 4, 6, 8 }) << std::endl;
     }
@@ -37,7 +45,9 @@ namespace InitializerList {
     // =================================================================================
 
     void test_02() {
+
         std::initializer_list<int> list{ 1, 2, 3, 4, 5 };
+
         std::vector<int> vec{ list };
     }
 
@@ -57,7 +67,8 @@ namespace InitializerList {
     };
 
     // container-like classes
-    class Polygon {
+    class Polygon
+    {
     public:
         Polygon(std::initializer_list<Point> elements)
             : m_elements{ elements } {}

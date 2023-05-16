@@ -8,6 +8,9 @@ module modern_cpp:attributes;
 
 namespace StandardAttributes {
 
+    // printf();
+    //std::find_if();
+
     [[ nodiscard ]] int discard_test()
     {
         return 123;
@@ -15,7 +18,7 @@ namespace StandardAttributes {
 
     void test_01()
     {
-        int result = discard_test();
+        (void) discard_test();
 
         // another call to discard_test:
         // 'warning: discarding return value of function with 'nodiscard' attribute'

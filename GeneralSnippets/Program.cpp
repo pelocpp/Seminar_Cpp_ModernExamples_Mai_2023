@@ -9,6 +9,8 @@ import std;
 
 #pragma message("Collection of Modern C++-Code Examples - Copyright (C) 2019-2023 Peter Loos")
 
+void main_test();
+
 int main()
 {
     std::cout << "[Collection of Modern C++-Code Examples - Copyright (C) 2019-2023 Peter Loos]" << std::endl;
@@ -89,20 +91,21 @@ int main()
         //main_templates_template_parameter_02();
         //main_templates_two_phase_name_lookup();
         //main_template_specialization();
+        //main_test();
         //main_transform();
         //main_trim();
         //main_tuple();
         //main_type_traits();
         //main_uniform_initialization();
         //main_unique_ptr();
-        //main_variadic_templates_introduction();
+        main_variadic_templates_introduction();
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();
         //main_variadic_templates_mixins();
         //main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
-        main_weak_pointer();
+        //main_weak_pointer();
     }
     catch (const std::exception& ex) {
         std::cout << "Exception: " << ex.what() << std::endl;

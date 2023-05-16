@@ -317,6 +317,7 @@
     <ClCompile Include="TemplateTemplateParameter\TemplateTemplateParameter_02.cpp" />
     <ClCompile Include="TemplateTwoPhaseLookup\Module_TemplateTwoPhaseLookup.ixx" />
     <ClCompile Include="TemplateTwoPhaseLookup\TemplateTwoPhaseLookup.cpp" />
+    <ClCompile Include="Test\Test.cpp" />
     <ClCompile Include="Transform\Module_Transform.ixx" />
     <ClCompile Include="Transform\Transform.cpp" />
     <ClCompile Include="Trim\Module_Trim.ixx" />

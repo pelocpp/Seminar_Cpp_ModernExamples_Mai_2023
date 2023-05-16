@@ -18,6 +18,15 @@ Guten Morgen :)
 
 // =====================================================================
 
+constexpr
+
+for // for_each // ..........
+
+emplace ...
+
+// =====================================================================
+
+
 :=  ... EA0   // temp. Objekt // wird jetzt freigegeben
 :=  ... 220
 
@@ -266,3 +275,118 @@ Ein ausführliches Beispiel:
 
 https://github.com/pelocpp/cpp_modern_examples/blob/master/GeneralSnippets/WeakPtr/WeakPtr.md
 
+
+=============================================
+
+Uniform Initialization
+
+Brace Initialization
+
+=============================================
+
+https://stackoverflow.com/questions/58228990/deprecated-results-in-error-instead-of-warning-in-visual-studio
+
+
+=============================================
+
+*Brace Elision* 
+
+Elision: Etwas weglassen
+
+=============================================
+
+
+std::initializer_list  ====> Stack
+
+std::vector            ====> Heap
+
+
+std::initializer_list:  Light-Weight Container
+
+3 Member:  begin(), end(), size()
+
+
+std::string_view       ====> Stack / Globales Datensegment
+
+std::string            ====> Heap
+
+
+std::array             ====> Klassisch definiert
+
+std::span              ====> Konstanter Zeiger
+
+================================================
+
+
+
+
+std::vector<int> v1 (10);
+
+std::vector<int> v2 {10};
+
+================================================
+
+C#:
+
+bool TryGetValue(out T value) {
+    if(NoDataIsAvailable) {
+        value = default(T); // because I have to set it to *something*
+        return false;
+    }
+    value = GetData();
+    return true;
+}
+
+C++:
+
+template <typename T>
+bool TryGetValue(T& value) {
+    if(NoDataIsAvailable) {
+        value = T {}; // because I have to set it to *something*
+        return false;
+    }
+    value = GetData();
+    return true;
+}
+
+================================================
+
+Variadische Templates
+
+...
+
+Ellipses
+
+C:  printf 40 Jahren
+
+===============================================
+
+Var. Templates:
+
+Kritik:  2 Funktion
+
+Folding   // "Abrollen"
+
+Anwenden eines Operators auf beliebig viele Operanden
+
+
+1 + 2
+
+1 + 2 + 3
+
+1 + 2 + 3 + 4
+
+addierer (TArgs ... args) {
+}
+
+
+(1 - 2) - 3 :    -4
+
+1 - (2 - 3) :    2
+
+
+===============================================
+
+Perfect Forwarding
+
+===============================================
